@@ -4,6 +4,7 @@
 
 #include "xstate_sync/xstate_downloader.h"
 
+#include "xcommon/xnode_type.h"
 #include "xmbus/xevent_state_sync.h"
 #include "xstate_sync/xerror.h"
 #include "xstate_sync/xstate_sync.h"
@@ -444,6 +445,9 @@ sync_peers xtop_state_downloader::latest_peers(const common::xtable_id_t & id) c
 }
 
 void xtop_state_downloader::add_network(std::shared_ptr<vnetwork::xvnetwork_driver_face_t> network) {
+    if (common::has<common::xnode_type_t::frozen>(network->type())) {
+        return;
+    }
     std::lock_guard<std::mutex> lock(m_mutex);
     // bind syncer
     network->register_message_ready_notify(xmessage_category_state_sync,
