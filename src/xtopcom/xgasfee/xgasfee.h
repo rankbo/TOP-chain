@@ -48,6 +48,7 @@ private:
     void process_bandwith_tgas(std::error_code & ec);
     void process_disk_tgas(std::error_code & ec);
     void process_calculation_tgas(const evm_common::u256 supplement_gas, std::error_code & ec);
+    void process_priority_fee_tgas(const evm_common::u256 supplement_gas, std::error_code & ec);
 
     // tgas related param
     evm_common::u256 m_free_tgas{0};
